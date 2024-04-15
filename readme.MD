@@ -24,8 +24,12 @@ To run the application from the command line, follow these steps:
 ```sh
 go run main.go
 ```
+6. You can also using flag. Like this
+```bash
+go run main.go -city "the city name"
+```
 
-6. Follow the on-screen instructions to enter the city name when prompted.
+7. Follow the on-screen instructions to enter the city name when prompted.
 
 ### Using Endpoint
 

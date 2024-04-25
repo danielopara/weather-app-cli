@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/spf13/cobra"
 )
 
 
@@ -43,7 +45,7 @@ func welcome(w http.ResponseWriter, r *http.Request){
 }
 
 func query(city string) (weather, error){
-	apiConfig, err := loadApiConfig("./apiConfig")
+	apiConfig, err := loadApiConfig("C:/Users/Dell/Documents/goLand-work/weather-app/apiConfig")
 	if err != nil {
 		return weather{}, err
 	}
@@ -88,7 +90,19 @@ func query(city string) (weather, error){
 */
 
 func main() {
-	var city string
+	RootCmd.Execute()
+}
+
+var RootCmd = &cobra.Command{
+	Use: "weather-app",
+	Short : "Checks the weather of a city",
+}
+
+var weatherCmd = &cobra.Command{
+	Use: "checks",
+	Short : "Checks weather",
+	Run: func(c *cobra.Command, args []string) {
+		var city string
 	flag.StringVar(&city, "city", "", "City for weather information")
 	flag.Parse()
 
@@ -109,4 +123,9 @@ func main() {
 
 	fmt.Printf("Weather information for %s:\n", strings.Title(city))
 	fmt.Printf("Temperature: %.2f°C\n", data.Main.Celsius)
+	},
+}
+
+func init(){
+	RootCmd.AddCommand(weatherCmd)
 }
